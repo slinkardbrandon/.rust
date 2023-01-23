@@ -1,44 +1,19 @@
-use inquire::{
-  list_option::ListOption, validator::Validation, MultiSelect,
-};
-
+mod commands;
 mod config;
 
+use std::env;
+
 fn main() {
-    let options = vec![
-        "OS",
-        "Git",
-        "VSCode",
-        "Shell",
-    ];
+    let args: Vec<String> = env::args().collect();
 
-    let validator = |a: &[ListOption<&&str>]| {
-        if a.len() < 1 {
-          return Ok(Validation::Invalid("You must select at least one option.".into()));
-        }
-
-        return Ok(Validation::Valid);
-    };
-
-    let ans = MultiSelect::new("Select what you would like to configure:", options)
-        .with_validator(validator)
-        .prompt();
-
-
-    match ans {
-        Ok(answers) => {
-            let entries = answers.iter();
-
-            for entry in entries {
-                match entry.as_ref() {
-                    "Git" => config::git::configure(),
-                    "VSCode" => config::vscode::configure(),
-                    "OS" => config::os::configure(),
-                    "Shell" => config::shell::configure(),
-                    _ => ()
-                }
+    match args.get(1) {
+        Some(v) => {
+            match v.as_ref() {
+                "sync" => commands::sync::exec(),
+                "update" => commands::update::exec(),
+                _ => commands::default::exec(),
             }
         }
-        Err(_) => println!("Something went wrong buddy."),
+        None => commands::default::exec(),
     }
 }
