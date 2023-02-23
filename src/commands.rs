@@ -1,4 +1,3 @@
-
 pub mod default;
-pub mod update;
 pub mod sync;
+pub mod update;

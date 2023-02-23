@@ -1,3 +1,3 @@
 pub fn configure() {
-	println!("Configuring NeoVim");
+  println!("Configuring NeoVim");
 }

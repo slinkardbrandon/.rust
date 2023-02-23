@@ -1,4 +1,3 @@
-
 pub fn exec() {
-	println!("TODO: Sync Stuff");
+  println!("TODO: Sync Stuff");
 }

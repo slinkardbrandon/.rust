@@ -1,3 +1,3 @@
 pub fn configure() {
-	println!("Configuring VSCode");
+  println!("Configuring VSCode");
 }
